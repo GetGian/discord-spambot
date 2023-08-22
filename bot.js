@@ -39,9 +39,13 @@ for (const token of config.botToken) {
           // future moderation bots from detecting that you sent a spam message.
 
           if (content) {
-            message.channel.send(content);
+            message.channel.send(content).then(sentMessage => {
+              sentMessage.delete().catch(console.error); // Delete the sent message
+            });
           } else {
-            message.channel.send("This is spam message #" + count);
+            message.channel.send("z").then(sentMessage => {
+              sentMessage.delete().catch(console.error); // Delete the sent message
+            });
           }
 
           if (count < maxMessages) {
@@ -60,8 +64,6 @@ for (const token of config.botToken) {
 
             setTimeout(sendSpamMessage, timeToWait);
           } else {
-            // Sends a message when count is equal to maxMessages. Else statement can be
-            // modified/removed without consequence.
             message.channel.send("------------------");
             message.channel.send("I AM FINISHED!!!");
             message.channel.send("------------------");
